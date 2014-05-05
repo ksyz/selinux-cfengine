@@ -133,6 +133,24 @@ interface(`cfengine_dontaudit_write_log',`
 	dontaudit $1 cfengine_log_t:lnk_file write;
 ')
 
+####################################
+## <summary>
+##      Connect to cfengine serverd port
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed to connect.
+##      </summary>
+## </param>
+#
+interface(`cfengine_serverd_port_connect',`
+        gen_require(`
+                type cfengine_serverd_port_t;
+        ')
+
+	allow $1 cfengine_serverd_port_t:tcp_socket 	name_connect;
+')
+
 ########################################
 ## <summary>
 ##	All of the rules required to

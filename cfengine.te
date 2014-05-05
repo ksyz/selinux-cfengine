@@ -1,5 +1,10 @@
 policy_module(cfengine, 1.0.3)
 
+gen_require(`
+        attribute port_type;
+        attribute reserved_port_type;
+')
+
 ########################################
 #
 # Declarations
@@ -19,6 +24,8 @@ files_type(cfengine_var_lib_t)
 
 type cfengine_log_t;
 logging_log_file(cfengine_log_t)
+
+type cfengine_serverd_port_t, port_type, reserved_port_type;
 
 ########################################
 #
@@ -49,6 +56,13 @@ dev_read_sysfs(cfengine_domain)
 
 sysnet_dns_name_resolve(cfengine_domain)
 sysnet_domtrans_ifconfig(cfengine_domain)
+
+########################################
+#
+# server local policy
+#
+
+cfengine_serverd_port_connect(cfengine_serverd_t)
 
 ########################################
 #
