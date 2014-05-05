@@ -70,8 +70,13 @@ cfengine_serverd_port_connect(cfengine_serverd_t)
 #
 
 kernel_read_sysctl(cfengine_execd_t)
+kernel_read_network_state(cfengine_execd_t)
 
 domain_read_all_domains_state(cfengine_execd_t)
+
+fs_getattr_xattr_fs(cfengine_execd_t)
+
+cfengine_append_inherited_log(cfengine_execd_t)
 
 ########################################
 #
