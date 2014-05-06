@@ -155,7 +155,7 @@ interface(`cfengine_serverd_port_connect',`
                 type cfengine_serverd_port_t;
         ')
 
-	allow $1 cfengine_serverd_port_t:tcp_socket 	name_connect;
+	allow $1 cfengine_serverd_port_t:tcp_socket 	{ name_connect name_bind };
 ')
 
 ########################################
