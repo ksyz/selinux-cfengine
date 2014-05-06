@@ -30,10 +30,13 @@ template(`cfengine_domain_template',`
 	#
 
 	kernel_read_system_state(cfengine_$1_t)
+	kernel_read_network_state(cfengine_$1_t)
 
 	auth_use_nsswitch(cfengine_$1_t)
 
 	logging_send_syslog_msg(cfengine_$1_t)
+
+	fs_getattr_xattr_fs(cfengine_$1_t)
 
 	# ./src/sysinfo.c -> OSClasses
 	vmware_read_system_config(cfengine_$1_t)
