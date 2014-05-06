@@ -4,6 +4,11 @@
 /usr/sbin/cf-execd	--	gen_context(system_u:object_r:cfengine_execd_exec_t,s0)
 /usr/sbin/cf-monitord	--	gen_context(system_u:object_r:cfengine_monitord_exec_t,s0)
 
-/var/cfengine(/.*)?	gen_context(system_u:object_r:cfengine_var_lib_t,s0)
+/var/cfengine(/.*)?			gen_context(system_u:object_r:cfengine_var_lib_t,s0)
 
-/var/cfengine/outputs(/.*)?	gen_context(system_u:object_r:cfengine_log_t,s0)
+/var/cfengine/outputs(/.*)?		gen_context(system_u:object_r:cfengine_output_log_t,s0)
+
+# snprintf(cflog, CF_BUFSIZE, "%s/cf3.%.40s.runlog", CFWORKDIR, host);
+/var/cfengine/cf3\..*\.runlog(\.\d+)?$	gen_context(system_u:object_r:cfengine_log_t,s0)
+
+/var/cfengine/.*\.log$			gen_context(system_u:object_r:cfengine_log_t,s0)

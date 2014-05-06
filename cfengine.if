@@ -140,6 +140,26 @@ interface(`cfengine_dontaudit_write_log',`
 	dontaudit $1 cfengine_log_t:lnk_file write;
 ')
 
+#####################################
+## <summary>
+##      Allow the specified domain to write cfengine's output logs
+## </summary>
+## <param name="domain">
+##      <summary>
+##      Domain allowed write.
+##      </summary>
+## </param>
+#
+interface(`cfengine_write_inherited_output_log',`
+        gen_require(`
+                type cfengine_output_log_t;
+        ')
+
+        cfengine_search_lib_files($1)
+	write_files_pattern($1, cfengine_output_log_t, cfengine_output_log_t)
+	write_lnk_files_pattern($1, cfengine_output_log_t, cfengine_output_log_t)
+')
+
 ####################################
 ## <summary>
 ##      Connect to cfengine serverd port

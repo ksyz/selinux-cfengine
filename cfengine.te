@@ -25,6 +25,9 @@ files_type(cfengine_var_lib_t)
 type cfengine_log_t;
 logging_log_file(cfengine_log_t)
 
+type cfengine_output_log_t;
+logging_log_file(cfengine_output_log_t)
+
 type cfengine_serverd_port_t, port_type, reserved_port_type;
 
 ########################################
@@ -44,8 +47,9 @@ files_var_lib_filetrans(cfengine_domain, cfengine_var_lib_t, dir)
 
 manage_dirs_pattern(cfengine_domain, cfengine_log_t, cfengine_log_t)
 append_files_pattern(cfengine_domain, cfengine_log_t, cfengine_log_t)
-create_files_pattern(cfengine_domain, cfengine_log_t, cfengine_log_t)
-setattr_files_pattern(cfengine_domain, cfengine_log_t, cfengine_log_t)
+create_files_pattern(cfengine_execd_t, cfengine_log_t, cfengine_log_t)
+setattr_files_pattern(cfengine_execd_t, cfengine_log_t, cfengine_log_t)
+read_files_pattern(cfengine_execd_t, cfengine_log_t, cfengine_log_t)
 logging_log_filetrans(cfengine_domain, cfengine_log_t, dir)
 
 corecmd_exec_bin(cfengine_domain)
@@ -64,6 +68,10 @@ sysnet_domtrans_ifconfig(cfengine_domain)
 
 cfengine_serverd_port_connect(cfengine_serverd_t)
 
+getattr_files_pattern(cfengine_serverd_t, cfengine_output_log_t, cfengine_output_log_t)
+setattr_dirs_pattern(cfengine_serverd_t, cfengine_output_log_t, cfengine_output_log_t)
+setattr_files_pattern(cfengine_serverd_t, cfengine_output_log_t, cfengine_output_log_t)
+
 ########################################
 #
 # Exec local policy
@@ -75,6 +83,10 @@ domain_read_all_domains_state(cfengine_execd_t)
 
 cfengine_append_inherited_log(cfengine_execd_t)
 
+manage_dirs_pattern(cfengine_execd_t, cfengine_output_log_t, cfengine_output_log_t)
+manage_files_pattern(cfengine_execd_t, cfengine_output_log_t, cfengine_output_log_t)
+manage_lnk_files_pattern(cfengine_execd_t, cfengine_output_log_t, cfengine_output_log_t)
+
 ########################################
 #
 # Monitord local policy
@@ -83,4 +95,9 @@ cfengine_append_inherited_log(cfengine_execd_t)
 kernel_read_hotplug_sysctls(cfengine_monitord_t)
 
 domain_read_all_domains_state(cfengine_monitord_t)
+
+getattr_files_pattern(cfengine_monitord_t, cfengine_output_log_t, cfengine_output_log_t)
+setattr_dirs_pattern(cfengine_monitord_t, cfengine_output_log_t, cfengine_output_log_t)
+setattr_files_pattern(cfengine_monitord_t, cfengine_output_log_t, cfengine_output_log_t)
+
 
