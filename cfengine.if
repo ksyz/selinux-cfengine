@@ -37,6 +37,7 @@ template(`cfengine_domain_template',`
 
 	# ./src/sysinfo.c -> OSClasses
 	vmware_read_system_config(cfengine_$1_t)
+	allow cfengine_$1_t vmware_sys_conf_t:dir search_dir_perms;
 	kernel_read_xen_state(cfengine_$1_t)
 ')
 
