@@ -1,0 +1,7 @@
+Prepare:
+
+ln -s /usr/share/selinux/devel/Makefile Makefile
+
+Compile & apply:
+
+./do.sh
