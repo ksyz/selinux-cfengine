@@ -117,9 +117,8 @@ interface(`cfengine_append_inherited_log',`
         ')
 
         cfengine_search_lib_files($1)
-	allow $1 cfengine_log_t:file { getattr append ioctl lock };
-	allow $1 cfengine_log_t:lnk_file { read create unlink };
-
+	append_files_pattern($1, cfengine_log_t, cfengine_log_t)
+	append_lnk_files_pattern($1, cfengine_log_t, cfengine_log_t)
 ')
 
 ####################################
